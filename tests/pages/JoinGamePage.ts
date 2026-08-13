@@ -2,7 +2,13 @@ import { Page } from '@playwright/test';
 
 /**
  * Page Object for the Join Game flow.
- * Covers entering a nickname after navigating to a game room.
+ *
+ * Route confirmed by app-access agent: #/join/:gameCode
+ * The home page "Join game →" button navigates here after entering the code.
+ *
+ * NOTE: The agent did not reach the in-room nickname screen, so the
+ * nickname input/button selectors use broad role/label matchers as a
+ * best-effort fallback until the DOM is inspected directly.
  */
 export class JoinGamePage {
   readonly page: Page;
@@ -16,13 +22,20 @@ export class JoinGamePage {
     await this.page.goto(`https://kahootlite.vercel.app/#/join/${gameCode}`);
   }
 
-  /** Enter a nickname and confirm to join the lobby. */
+  /**
+   * Enter a nickname and confirm to join the lobby.
+   * Selector uses broad matchers — update once the real label is confirmed
+   * by inspecting the DOM on the join screen.
+   */
   async enterNickname(nickname: string) {
     await this.page.getByLabel(/nickname|name/i).fill(nickname);
     await this.page.getByRole('button', { name: /join|enter|start/i }).click();
   }
 
-  /** Wait until the waiting-for-host lobby screen is visible. */
+  /**
+   * Wait until the waiting-for-host lobby is visible.
+   * Selector uses broad text matchers — update once real copy is confirmed.
+   */
   async waitForLobby() {
     await this.page
       .getByText(/waiting|lobby|get ready/i)
