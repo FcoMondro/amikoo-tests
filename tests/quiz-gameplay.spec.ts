@@ -8,12 +8,12 @@ import { GameplayPage } from './pages/GameplayPage';
 // Shared quiz data
 // ---------------------------------------------------------------------------
 const QUIZ_TITLE = 'Quiz de Geografía';
-const QUIZ_DESCRIPTION = 'Preguntas de países';
+// NOTE: the app does NOT have a description field — removed from all tests.
 const QUESTION_TEXT = '¿Cuál es la capital de Francia?';
 const OPTIONS = ['París', 'Madrid', 'Roma', 'Berlín'];
 const CORRECT_ANSWER = 'París';
 const WRONG_ANSWER = 'Madrid';
-const CORRECT_INDEX = 0; // 'París' is at index 0
+const CORRECT_INDEX = 0; // 'París' → Option A (index 0)
 const PLAYER_NICKNAME = 'Jugador1';
 
 // ---------------------------------------------------------------------------
