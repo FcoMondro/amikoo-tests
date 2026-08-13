@@ -2,7 +2,13 @@ import { Page } from '@playwright/test';
 
 /**
  * Page Object for the KahootLite landing page (#/).
- * Handles navigation to join a game or create a new quiz.
+ *
+ * Labels/text confirmed by the app-access exploration agent:
+ *   - Game code input: placeholder "ABC123"
+ *   - Join button: "Join game →"
+ *   - New quiz button: "+ New quiz"
+ *   - My quizzes button: "My quizzes"
+ *   - Theme toggle: aria-label "Toggle theme", shows "☀️" / "🌙"
  */
 export class HomePage {
   readonly page: Page;
@@ -16,14 +22,19 @@ export class HomePage {
     await this.page.goto(this.BASE_URL);
   }
 
-  /** Enter a game code and submit to join a room. */
+  /** Enter a game code and click "Join game →". */
   async joinGame(code: string) {
     await this.page.getByPlaceholder('ABC123').fill(code);
-    await this.page.getByRole('button', { name: /Join game/i }).click();
+    await this.page.getByRole('button', { name: 'Join game →' }).click();
   }
 
-  /** Click the "+ New quiz" button to navigate to the quiz creator. */
+  /** Click "+ New quiz" to navigate to the quiz creator. */
   async clickNewQuiz() {
-    await this.page.getByRole('button', { name: /New quiz/i }).click();
+    await this.page.getByRole('button', { name: '+ New quiz' }).click();
+  }
+
+  /** Click "My quizzes" to navigate to the quiz library. */
+  async clickMyQuizzes() {
+    await this.page.getByRole('button', { name: 'My quizzes' }).click();
   }
 }

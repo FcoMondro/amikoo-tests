@@ -8,12 +8,12 @@ import { GameplayPage } from './pages/GameplayPage';
 // Shared quiz data
 // ---------------------------------------------------------------------------
 const QUIZ_TITLE = 'Quiz de Geografía';
-const QUIZ_DESCRIPTION = 'Preguntas de países';
+// NOTE: the app does NOT have a description field — removed from all tests.
 const QUESTION_TEXT = '¿Cuál es la capital de Francia?';
 const OPTIONS = ['París', 'Madrid', 'Roma', 'Berlín'];
 const CORRECT_ANSWER = 'París';
 const WRONG_ANSWER = 'Madrid';
-const CORRECT_INDEX = 0; // 'París' is at index 0
+const CORRECT_INDEX = 0; // 'París' → Option A (index 0)
 const PLAYER_NICKNAME = 'Jugador1';
 
 // ---------------------------------------------------------------------------
@@ -34,11 +34,10 @@ test('TC-01 — crear un quiz con preguntas', async ({ page }) => {
   // Navigate to the quiz creator
   await createPage.goto();
 
-  // Fill quiz metadata
+  // Fill quiz title (the app has no description field)
   await createPage.fillTitle(QUIZ_TITLE);
-  await createPage.fillDescription(QUIZ_DESCRIPTION);
 
-  // Add a question with 4 options, marking the correct one
+  // Add a question with 4 options, marking the correct one (index 0 = Option A)
   await createPage.addQuestion(QUESTION_TEXT, OPTIONS, CORRECT_INDEX);
 
   // Save the quiz and start a game room
@@ -58,7 +57,6 @@ test('TC-02 — unirse con nickname', async ({ browser }) => {
   const createPage = new CreateQuizPage(hostPage);
   await createPage.goto();
   await createPage.fillTitle(QUIZ_TITLE);
-  await createPage.fillDescription(QUIZ_DESCRIPTION);
   await createPage.addQuestion(QUESTION_TEXT, OPTIONS, CORRECT_INDEX);
   const gameCode = await createPage.saveAndHost();
 
