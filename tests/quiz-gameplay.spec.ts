@@ -57,7 +57,6 @@ test('TC-02 — unirse con nickname', async ({ browser }) => {
   const createPage = new CreateQuizPage(hostPage);
   await createPage.goto();
   await createPage.fillTitle(QUIZ_TITLE);
-  await createPage.fillDescription(QUIZ_DESCRIPTION);
   await createPage.addQuestion(QUESTION_TEXT, OPTIONS, CORRECT_INDEX);
   const gameCode = await createPage.saveAndHost();
 
