@@ -34,11 +34,10 @@ test('TC-01 — crear un quiz con preguntas', async ({ page }) => {
   // Navigate to the quiz creator
   await createPage.goto();
 
-  // Fill quiz metadata
+  // Fill quiz title (the app has no description field)
   await createPage.fillTitle(QUIZ_TITLE);
-  await createPage.fillDescription(QUIZ_DESCRIPTION);
 
-  // Add a question with 4 options, marking the correct one
+  // Add a question with 4 options, marking the correct one (index 0 = Option A)
   await createPage.addQuestion(QUESTION_TEXT, OPTIONS, CORRECT_INDEX);
 
   // Save the quiz and start a game room
